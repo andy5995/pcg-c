@@ -1,0 +1,49 @@
+name: Linux
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ master ]
+    paths: &shared_paths
+      - '**'
+      - '!**.yml'
+      - '!**.md'
+      - '**/linux.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths: *shared_paths
+
+jobs:
+  Linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+        cc:
+          - gcc
+          - clang
+    runs-on: ${{ matrix.os }}
+    env:
+      CC: ${{ matrix.cc }}
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Install meson and ninja
+      run: pip install meson ninja
+
+    - name: Meson setup
+      run: CFLAGS="-Werror" meson setup _build
+
+    - name: Build
+      run: meson compile -C _build
+
+    - name: Test
+      run: meson test --no-stdsplit -v -C _build
+
+    - name: Install test
+      run: meson install --destdir=install_test -C _build

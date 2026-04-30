@@ -1,0 +1,44 @@
+name: MacOS
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ master ]
+    paths: &shared_paths
+      - '**'
+      - '!**.yml'
+      - '!**.md'
+      - '**/macos.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths: *shared_paths
+
+jobs:
+  MacOS:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-15
+          - macos-14
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Install meson and ninja
+      run: pip install meson ninja
+
+    - name: Meson setup
+      run: CFLAGS="-Werror" meson setup _build
+
+    - name: Build
+      run: meson compile -C _build
+
+    - name: Test
+      run: meson test --no-stdsplit -v -C _build
+
+    - name: Install test
+      run: meson install --destdir=install_test -C _build

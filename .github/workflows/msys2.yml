@@ -1,0 +1,48 @@
+name: MSYS2
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ master ]
+    paths: &shared_paths
+    - '**'
+    - '!**.yml'
+    - '!**.md'
+    - '**/msys2.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths: *shared_paths
+
+jobs:
+  MSYS2:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ['UCRT64', 'CLANG64']
+    steps:
+    - uses: actions/checkout@v6
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: ${{ matrix.platform }}
+        pacboy: >-
+          cc:p
+          meson:p
+          ninja:p
+        update: true
+
+    - name: Meson setup
+      shell: msys2 {0}
+      run: CFLAGS="-Werror" meson setup _build
+
+    - name: Build
+      shell: msys2 {0}
+      run: meson compile -C _build
+
+    - name: Test
+      shell: msys2 {0}
+      run: PYTHONUTF8=1 meson test --no-stdsplit -v -C _build

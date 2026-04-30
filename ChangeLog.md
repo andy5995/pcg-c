@@ -1,4 +1,6 @@
-(in-progress):
+2026-04-29
+
+- pcg 0.94.1:
   - Replace Makefiles with Meson build system with support for building and
     installing the shared library, pkg-config file, headers, and documentation
   - Meson test integration for both high-level (`test-high`) and low-level

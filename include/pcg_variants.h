@@ -36,6 +36,13 @@
 #ifndef PCG_VARIANTS_H_INCLUDED
 #define PCG_VARIANTS_H_INCLUDED 1
 
+/* Unary minus on unsigned types is well-defined in C (wraps modulo 2^N) and
+ * intentional throughout this header; suppress the MSVC false positive. */
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4146)
+#endif
+
 #include <inttypes.h>
 
 #if __SIZEOF_INT128__
@@ -69,7 +76,7 @@ inline uint8_t pcg_rotr_8(uint8_t value, unsigned int rot)
     asm ("rorb   %%cl, %0" : "=r" (value) : "0" (value), "c" (rot));
     return value;
 #else
-    return (value >> rot) | (value << ((- rot) & 7));
+    return (value >> rot) | (value << ((-rot) & 7));
 #endif
 }
 
@@ -79,7 +86,7 @@ inline uint16_t pcg_rotr_16(uint16_t value, unsigned int rot)
     asm ("rorw   %%cl, %0" : "=r" (value) : "0" (value), "c" (rot));
     return value;
 #else
-    return (value >> rot) | (value << ((- rot) & 15));
+    return (value >> rot) | (value << ((-rot) & 15));
 #endif
 }
 
@@ -89,7 +96,7 @@ inline uint32_t pcg_rotr_32(uint32_t value, unsigned int rot)
     asm ("rorl   %%cl, %0" : "=r" (value) : "0" (value), "c" (rot));
     return value;
 #else
-    return (value >> rot) | (value << ((- rot) & 31));
+    return (value >> rot) | (value << ((-rot) & 31));
 #endif
 }
 
@@ -101,14 +108,14 @@ inline uint64_t pcg_rotr_64(uint64_t value, unsigned int rot)
     asm ("rorq   %%cl, %0" : "=r" (value) : "0" (value), "c" (rot));
     return value;
 #else
-    return (value >> rot) | (value << ((- rot) & 63));
+    return (value >> rot) | (value << ((-rot) & 63));
 #endif
 }
 
 #if PCG_HAS_128BIT_OPS
 inline pcg128_t pcg_rotr_128(pcg128_t value, unsigned int rot)
 {
-    return (value >> rot) | (value << ((- rot) & 127));
+    return (value >> rot) | (value << ((-rot) & 127));
 }
 #endif
 
@@ -155,7 +162,7 @@ inline uint16_t pcg_output_xsh_rr_32_16(uint32_t state)
 
 inline uint32_t pcg_output_xsh_rr_64_32(uint64_t state)
 {
-    return pcg_rotr_32(((state >> 18u) ^ state) >> 27u, state >> 59u);
+    return pcg_rotr_32(((state >> 18u) ^ state) >> 27u, (unsigned int)(state >> 59u));
 }
 
 #if PCG_HAS_128BIT_OPS
@@ -2538,6 +2545,10 @@ extern void     pcg64_advance(pcg128_t delta);
 
 #if __cplusplus
 }
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(pop)
 #endif
 
 #endif /* PCG_VARIANTS_H_INCLUDED */

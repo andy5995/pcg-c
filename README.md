@@ -1,3 +1,9 @@
+[![Linux](https://github.com/andy5995/pcg-c/actions/workflows/linux.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/linux.yml)
+[![MacOS](https://github.com/andy5995/pcg-c/actions/workflows/macos.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/macos.yml)
+[![msys2](https://github.com/andy5995/pcg-c/actions/workflows/msys2.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/msys2.yml)
+[![msvc](https://github.com/andy5995/pcg-c/actions/workflows/msvc.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/msvc.yml)
+
+
 This repository was forked from the original at
 [](https://github.com/imneme/pcg-c/commit/83252d9c23df9c82ecb42210afed61a7b42402d7)
 from the original, which had several bug fixes from the officially released

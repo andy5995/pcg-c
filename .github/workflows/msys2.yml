@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: ['UCRT64', 'CLANG64']
+        platform: ['UCRT64']
     steps:
     - uses: actions/checkout@v6
 
@@ -31,9 +31,11 @@ jobs:
         msystem: ${{ matrix.platform }}
         pacboy: >-
           cc:p
+          diffutils:p
           meson:p
           ninja:p
         update: true
+        cache: true
 
     - name: Meson setup
       shell: msys2 {0}

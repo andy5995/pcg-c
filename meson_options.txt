@@ -1,0 +1,13 @@
+option(
+  'build_tests',
+  type: 'boolean',
+  value: true,
+  description: 'Build and register the test suite',
+)
+
+option(
+  'docdir',
+  type: 'string',
+  value: 'share/doc/pcg-c',
+  description: 'Installation directory for documentation (relative to prefix)',
+)

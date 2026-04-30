@@ -60,7 +60,7 @@ pkg = import('pkgconfig')
 pkg.generate(
     pcg_lib,
     name: meson.project_name(),
-    url: 'https://www.pcg-random.org/',
+    url: 'https://github.com/andy5995/pcg-c',
     description: 'PCG Random Number Generation library for C',
     version: meson.project_version(),
     subdirs: '.',

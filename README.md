@@ -1,3 +1,11 @@
+This repository was forked from the original at
+[](https://github.com/imneme/pcg-c/commit/83252d9c23df9c82ecb42210afed61a7b42402d7)
+from the original, which had several bug fixes from the officially released
+[0.94 version](https://www.pcg-random.org/download.html). The aim of this
+repository is to provide a tagged version for packagers and should have
+minimal changes to it. andy5995 has replaced the Makefiles with a
+[mesonbuild](https://mesonbuild.com/) to also aid in packaging.
+
 # PCG Random Number Generation, C Edition
 
 [PCG-Random website]: http://www.pcg-random.org
@@ -59,7 +67,7 @@ The directories are arranged as follows:
 * `extras` -- other useful code, such as code to read /dev/random
 * `sample` -- sample code, similar to the code in `test-high` but more human
   readable
-  
+
 ## 128-bit Math
 
 On systems that support it (64-bit systems using GCC or Clang), the library

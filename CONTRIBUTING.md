@@ -1,7 +1,7 @@
 # Contributing
 
 The license for this work does not require you to share changes you make
-in your own version of the code.  Contributions are welcome, however.
+in your own version of the code.
 
 ## License
 

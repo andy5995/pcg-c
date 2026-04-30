@@ -1,7 +1,7 @@
 project(
     'pcg-c',
     'c',
-    version: '0.94.2-dev',
+    version: '0.94.2',
     meson_version: '>= 0.58.0',
     default_options: ['warning_level=2', 'c_std=c99'],
 )

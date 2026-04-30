@@ -67,7 +67,7 @@ pkg.generate(
 )
 
 fs = import('fs')
-doc_files = ['README.md']
+doc_files = ['README.md', 'ChangeLog.md']
 # License filenames differ between the git repo and release archives, so check
 # before including to allow the same meson.build to work with both.
 foreach f : [

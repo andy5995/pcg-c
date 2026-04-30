@@ -35,6 +35,7 @@ jobs:
           meson:p
           ninja:p
         update: true
+        cache: true
 
     - name: Meson setup
       shell: msys2 {0}

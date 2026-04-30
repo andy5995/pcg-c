@@ -5,11 +5,11 @@
 
 
 This repository was forked from the original at
-[](https://github.com/imneme/pcg-c/commit/83252d9c23df9c82ecb42210afed61a7b42402d7)
-from the original, which had several bug fixes from the officially released
-[0.94 version](https://www.pcg-random.org/download.html). The aim of this
-repository is to provide a tagged version for packagers and should have
-minimal changes to it. andy5995 has replaced the Makefiles with a
+[83252d9](https://github.com/imneme/pcg-c/commit/83252d9c23df9c82ecb42210afed61a7b42402d7)
+, which had several bug fixes from the officially released [0.94
+version](https://www.pcg-random.org/download.html). The aim of this repository
+is to provide a tagged version for packagers and should have minimal changes
+to it. andy5995 has replaced the Makefiles with a
 [mesonbuild](https://mesonbuild.com/) to also aid in packaging.
 
 # PCG Random Number Generation, C Edition

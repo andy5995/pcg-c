@@ -49,7 +49,7 @@ foreach name : test_names
 
     expected = meson.current_source_dir() / 'expected' / name + '.out'
     if fs.is_file(expected)
-        test(name, sh, args: ['-c', exe.full_path() + ' | diff - ' + expected])
+        test(name, sh, args: ['-c', exe.full_path().replace('\\', '/') + ' | diff - ' + expected.replace('\\', '/')])
     else
         test(name, exe)
     endif

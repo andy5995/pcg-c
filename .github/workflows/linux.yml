@@ -37,7 +37,7 @@ jobs:
       run: pip install meson ninja
 
     - name: Meson setup
-      run: CFLAGS="-Werror" meson setup _build
+      run: CFLAGS="-Werror" meson setup _build -Db_sanitize=address,undefined -Db_lundef=false
 
     - name: Build
       run: meson compile -C _build

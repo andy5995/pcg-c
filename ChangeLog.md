@@ -1,3 +1,12 @@
+(in-progress):
+
+- Fix signed integer overflow UB in `pcg_advance_lcg_8` and
+  `pcg_advance_lcg_16`: C's integer promotion rules convert `uint8_t`/`uint16_t`
+  operands to signed `int` before arithmetic; large 16-bit products exceed
+  `INT32_MAX`, triggering undefined behavior caught by UBSan. Cast through the
+  next-wider unsigned type to keep all multiplications in unsigned arithmetic.
+
+
 2026-04-29
 
 - pcg 0.94.1:

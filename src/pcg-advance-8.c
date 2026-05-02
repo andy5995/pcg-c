@@ -48,13 +48,13 @@ uint8_t pcg_advance_lcg_8(uint8_t state, uint8_t delta, uint8_t cur_mult,
     uint8_t acc_plus = 0u;
     while (delta > 0) {
         if (delta & 1) {
-            acc_mult *= cur_mult;
-            acc_plus = acc_plus * cur_mult + cur_plus;
+            acc_mult = (uint8_t)((uint16_t)acc_mult * cur_mult);
+            acc_plus = (uint8_t)((uint16_t)acc_plus * cur_mult + cur_plus);
         }
-        cur_plus = (cur_mult + 1) * cur_plus;
-        cur_mult *= cur_mult;
+        cur_plus = (uint8_t)((uint16_t)(cur_mult + 1u) * cur_plus);
+        cur_mult = (uint8_t)((uint16_t)cur_mult * cur_mult);
         delta /= 2;
     }
-    return acc_mult * state + acc_plus;
+    return (uint8_t)((uint16_t)acc_mult * state + acc_plus);
 }
 

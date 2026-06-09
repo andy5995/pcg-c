@@ -18,6 +18,7 @@ on:
 
 jobs:
   BSD:
+    name: BSD (${{ matrix.os }} ${{ matrix.version }})
     strategy:
       fail-fast: false
       matrix:

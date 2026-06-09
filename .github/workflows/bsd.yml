@@ -32,14 +32,26 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - name: Test on ${{ matrix.os }} ${{ matrix.version }}
+    - name: Setup ${{ matrix.os }} ${{ matrix.version }}
       uses: cross-platform-actions/action@v1
       with:
         operating_system: ${{ matrix.os }}
         version: ${{ matrix.version }}
-        run: |
-          ${{ matrix.install }}
-          CFLAGS="-Werror" meson setup _build
-          meson compile -C _build
-          meson test --no-stdsplit -v -C _build
-          meson install --destdir=install_test -C _build
+
+    - name: Install dependencies
+      shell: cpa.sh {0}
+      run: ${{ matrix.install }}
+
+    - name: Setup
+      shell: cpa.sh {0}
+      run: CFLAGS="-Werror" meson setup _build
+
+    - name: Compile
+      shell: cpa.sh {0}
+      run: meson compile -C _build
+
+    - name: Test and install
+      shell: cpa.sh {0}
+      run: |
+        meson test --no-stdsplit -v -C _build
+        meson install --destdir=install_test -C _build

@@ -91,6 +91,7 @@ if is_standalone
     )
 
     if get_option('build_tests')
+        check_output = find_program('build-aux/check-output.py')
         subdir('test-high')
         subdir('test-low')
     endif

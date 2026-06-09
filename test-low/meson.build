@@ -1,5 +1,4 @@
 fs = import('fs')
-sh = find_program('sh')
 
 test_inc = include_directories('.', '../extras')
 
@@ -101,17 +100,7 @@ foreach name : test_names
 
     expected = meson.current_source_dir() / 'expected' / name + '.out'
     if fs.is_file(expected)
-        test(
-            name,
-            sh,
-            args: [
-                '-c',
-                'tmp=$(mktemp) && ' + exe.full_path().replace('\\', '/') + ' > "$tmp" && diff "$tmp" ' + expected.replace(
-                    '\\',
-                    '/',
-                ) + '; rc=$?; rm -f "$tmp"; exit $rc',
-            ],
-        )
+        test(name, check_output, args: [exe, expected])
     else
         test(name, exe)
     endif

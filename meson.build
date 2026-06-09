@@ -24,65 +24,71 @@ pcg_inc = include_directories('include')
 
 subdir('src')
 
+# As a subproject the superproject owns installation and our tests/samples are
+# irrelevant, so install nothing and skip them. A standalone build installs the
+# library and builds the rest.
+is_standalone = not meson.is_subproject()
+
 # MSVC shared libraries require __declspec(dllexport) on every public symbol;
-# build static on Windows to avoid that requirement.
+# force static on Windows to avoid that requirement. Elsewhere, library() honours
+# the built-in default_library option so a superproject can request a static build.
 if host_machine.system() == 'windows'
     pcg_lib = static_library(
         meson.project_name(),
         _lib_sources,
         include_directories: pcg_inc,
-        install: true,
+        install: is_standalone,
     )
 else
-    pcg_lib = shared_library(
+    pcg_lib = library(
         meson.project_name(),
         _lib_sources,
         include_directories: pcg_inc,
         version: meson.project_version(),
         soversion: 0,
-        install: true,
+        install: is_standalone,
     )
 endif
-
-install_headers('include/pcg_variants.h')
 
 pcg_dep = declare_dependency(
     link_with: pcg_lib,
     include_directories: pcg_inc,
 )
 
-pkg = import('pkgconfig')
-pkg.generate(
-    pcg_lib,
-    name: meson.project_name(),
-    url: 'https://github.com/andy5995/pcg-c',
-    description: 'PCG Random Number Generation library for C',
-    version: meson.project_version(),
-    subdirs: '.',
-)
+if is_standalone
+    install_headers('include/pcg_variants.h')
 
-fs = import('fs')
-doc_files = ['README.md', 'ChangeLog.md']
-# License filenames differ between the git repo and release archives, so check
-# before including to allow the same meson.build to work with both.
-foreach f : [
-    'LICENSE.txt',
-    'LICENSE-APACHE.txt',
-    'LICENSE-MIT.txt',
-    'LICENSE.spdx',
-    'CONTRIBUTING.md',
-]
-    if fs.is_file(f)
-        doc_files += f
+    pkg = import('pkgconfig')
+    pkg.generate(
+        pcg_lib,
+        name: meson.project_name(),
+        url: 'https://github.com/andy5995/pcg-c',
+        description: 'PCG Random Number Generation library for C',
+        version: meson.project_version(),
+        subdirs: '.',
+    )
+
+    fs = import('fs')
+    doc_files = ['README.md', 'ChangeLog.md']
+    # License filenames differ between the git repo and release archives, so check
+    # before including to allow the same meson.build to work with both.
+    foreach f : [
+        'LICENSE.txt',
+        'LICENSE-APACHE.txt',
+        'LICENSE-MIT.txt',
+        'LICENSE.spdx',
+        'CONTRIBUTING.md',
+    ]
+        if fs.is_file(f)
+            doc_files += f
+        endif
+    endforeach
+    install_data(doc_files, install_dir: get_option('docdir'))
+
+    if get_option('build_tests')
+        subdir('test-high')
+        subdir('test-low')
     endif
-endforeach
-install_data(doc_files, install_dir: get_option('docdir'))
 
-if get_option('build_tests')
-    subdir('test-high')
-    subdir('test-low')
-endif
-
-if not meson.is_subproject()
     subdir('sample')
 endif

@@ -5,7 +5,7 @@
   operands to signed `int` before arithmetic; large 16-bit products exceed
   `INT32_MAX`, triggering undefined behavior caught by UBSan. Cast through the
   next-wider unsigned type to keep all multiplications in unsigned arithmetic.
-
+- When built as a Meson subproject, install nothing and skip the tests/samples.
 
 2026-04-29
 

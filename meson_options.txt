@@ -6,6 +6,13 @@ option(
 )
 
 option(
+  'build_samples',
+  type: 'boolean',
+  value: false,
+  description: 'Build the sample programs',
+)
+
+option(
   'docdir',
   type: 'string',
   value: 'share/doc/pcg-c',

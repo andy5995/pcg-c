@@ -100,3 +100,7 @@ if get_option('build_tests')
     subdir('test-high')
     subdir('test-low')
 endif
+
+if not meson.is_subproject()
+    subdir('sample')
+endif

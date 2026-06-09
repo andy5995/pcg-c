@@ -29,7 +29,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "pcg_variants.h"
+#include <pcg_variants.h>
 #include "entropy.h"                    /* Wrapper around /dev/random */
 
 /*

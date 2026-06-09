@@ -1,12 +1,16 @@
-(in-progress):
+2026-06-10
 
-- Fix signed integer overflow UB in `pcg_advance_lcg_8` and
-  `pcg_advance_lcg_16`: C's integer promotion rules convert `uint8_t`/`uint16_t`
-  operands to signed `int` before arithmetic; large 16-bit products exceed
-  `INT32_MAX`, triggering undefined behavior caught by UBSan. Cast through the
-  next-wider unsigned type to keep all multiplications in unsigned arithmetic.
-- When built as a Meson subproject, install nothing and skip the tests/samples.
-- Raise the declared Meson minimum to 0.58.0 to match features already in use (silences a setup-time warning).
+- pcg 0.94.2:
+  - Fix signed integer overflow UB in `pcg_advance_lcg_8` and
+    `pcg_advance_lcg_16`: C's integer promotion rules convert `uint8_t`/`uint16_t`
+    operands to signed `int` before arithmetic; large 16-bit products exceed
+    `INT32_MAX`, triggering undefined behavior caught by UBSan. Cast through the
+    next-wider unsigned type to keep all multiplications in unsigned arithmetic.
+  - When built as a Meson subproject, install nothing and skip the tests/samples.
+  - Honour `-Ddefault_library=static` on non-Windows builds (previously always shared).
+  - Add a `build_samples` option (default off) to build the sample programs.
+  - Raise the declared Meson minimum to 0.58.0 to match features already in use
+    (silences a setup-time warning).
 
 2026-04-29
 

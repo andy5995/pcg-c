@@ -38,6 +38,9 @@ Visit [PCG-Random website] for information on how to use this library, or look
 at the sample code in the `sample` directory -- hopefully it should be fairly
 self explanatory.
 
+For background on the design, watch the Stanford Seminar talk
+[PCG: A Family of Better Random Number Generators](https://youtu.be/45Oet5qjlms).
+
 ## Building
 
 The code is written in C99-style C with no significant platform dependencies.

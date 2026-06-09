@@ -100,7 +100,7 @@ foreach name : test_names
 
     expected = meson.current_source_dir() / 'expected' / name + '.out'
     if fs.is_file(expected)
-        test(name, check_output, args: [exe, expected])
+        test(name, python, args: [check_output, exe, expected])
     else
         test(name, exe)
     endif

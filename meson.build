@@ -91,7 +91,10 @@ if is_standalone
     )
 
     if get_option('build_tests')
-        check_output = find_program('build-aux/check-output.py')
+        # Run the comparison script with meson's own Python rather than relying on
+        # a python3 on PATH; the BSD CI VMs have meson but no python3 in PATH.
+        python = import('python').find_installation()
+        check_output = files('build-aux/check-output.py')
         subdir('test-high')
         subdir('test-low')
     endif

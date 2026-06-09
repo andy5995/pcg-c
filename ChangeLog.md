@@ -6,6 +6,7 @@
   `INT32_MAX`, triggering undefined behavior caught by UBSan. Cast through the
   next-wider unsigned type to keep all multiplications in unsigned arithmetic.
 - When built as a Meson subproject, install nothing and skip the tests/samples.
+- Raise the declared Meson minimum to 0.58.0 to match features already in use (silences a setup-time warning).
 
 2026-04-29
 

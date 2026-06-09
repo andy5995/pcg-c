@@ -2,7 +2,7 @@
 [![MacOS](https://github.com/andy5995/pcg-c/actions/workflows/macos.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/macos.yml)
 [![msys2](https://github.com/andy5995/pcg-c/actions/workflows/msys2.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/msys2.yml)
 [![msvc](https://github.com/andy5995/pcg-c/actions/workflows/msvc.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/msvc.yml)
-[![msvc](https://github.com/andy5995/pcg-c/actions/workflows/bsd.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/bsd.yml)
+[![BSD](https://github.com/andy5995/pcg-c/actions/workflows/bsd.yml/badge.svg)](https://github.com/andy5995/pcg-c/actions/workflows/bsd.yml)
 
 
 This repository was forked from the original at
@@ -92,7 +92,3 @@ that only have a single stream/sequence).  Example code is provided in
 
 The C++ implementation provides 128-bit integers even on systems that don't
 natively support it, but doing so would be too much trouble in C.
-
-
-
-

@@ -11,7 +11,10 @@ This repository was forked from the original at
 version](https://www.pcg-random.org/download.html). The aim of this repository
 is to provide a tagged version for packagers and should have minimal changes
 to it. andy5995 has replaced the Makefiles with a
-[mesonbuild](https://mesonbuild.com/) to also aid in packaging.
+[mesonbuild](https://mesonbuild.com/) to also aid in packaging. Installing the
+library also provides a pkg-config (`.pc`) file so build systems can locate
+pcg-c's headers and library automatically (e.g. `pkg-config --cflags --libs
+pcg-c`).
 
 # PCG Random Number Generation, C Edition
 
@@ -38,16 +41,16 @@ self explanatory.
 ## Building
 
 The code is written in C99-style C with no significant platform dependencies.
-On a Unix-style system (e.g., Linux, Mac OS X) you should be able to just
-type
+With [Meson](https://mesonbuild.com/) installed, configure and build with
 
-    make
+    meson setup build
+    meson compile -C build
 
 Almost all the real code is in `include/pcg_variants.h`.  Because the
 individual RNGs have a very small amount of code, they are provided as
 inline functions to allow the compiler the option of inlining them.
 But because C requires there to also be an external definition, the
-`src` directory contains code to build `libpcg_random.a` which provides
+`src` directory contains code to build `libpcg-c` which provides
 non-inline definitions for all the PCG generators.
 
 On other systems, it should be straightforward to build a library by
@@ -58,7 +61,7 @@ an `extern` declaration for every function you actually use.
 
 Run
 
-    make test
+    meson test -C build
 
 ## Directory Structure
 

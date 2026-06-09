@@ -85,6 +85,11 @@ if is_standalone
     endforeach
     install_data(doc_files, install_dir: get_option('docdir'))
 
+    has_128bit = cc.compiles(
+        'typedef __uint128_t t;',
+        name: '128-bit integer support',
+    )
+
     if get_option('build_tests')
         subdir('test-high')
         subdir('test-low')

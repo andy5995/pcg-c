@@ -1,9 +1,5 @@
 fs = import('fs')
 sh = find_program('sh')
-has_128bit = cc.compiles(
-    'typedef __uint128_t t;',
-    name: '128-bit integer support',
-)
 
 test_inc = include_directories('.', '../extras')
 
